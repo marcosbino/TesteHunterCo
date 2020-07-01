@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="src/assets/sass/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+    <title>Teste HunterCo.</title>
+</head>
+<body>
+    <div class="container-fluid p-0 m-0" id="app">
+        <div class="header text-center">
+            <h1><strong>HuntersCo.</strong></h1>
+            <div class="check">99.9% de disponibilidade: seu site sempre no ar</div>
+            <div class="check">Suporte 24h, todos os dias</div>
+            <div class="check">Painel de controle cPanel</div>
+            <button id="show-down">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z"/>
+                </svg>
+            </button>
+        </div>
+        <div v-if="loading">Carregando...</div>
+        <div  v-else class="content-home d-flex justify-content-center">
+            <div class="col-8">
+                <div class="text-center  m-3 m-b-1">
+                    <span>quero pagar a cada:</span>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="swiper-selector">
+                        <label for="">
+                            <input type="radio" name="cycle" checked v-model="cycle" value="36">3 anos
+                        </label>
+                        <label for="">
+                            <input type="radio" name="cycle" v-model="cycle" value="12">1 ano
+                        </label>
+                        <label for="">
+                            <input type="radio" name="cycle" v-model="cycle" value="1">1 mês
+                        </label>
+                    </div>
+                </div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide d-flex justify-content-between flex-wrap">
+                                <div class="card" v-if="info.products !== null" v-for="product in info.products">
+                                    <input type="hidden" name="id" >
+                                    <div class="card-header text-center">
+                                        <i>icon</i>
+                                        <h3>{{product.name}}</h3>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="small price">
+                                            <p v-if="cycle === 36 ">
+                                                <span class="old-price">R$ {{product.cycle.triennially.priceOrder}}</span>
+                                            </p>
+                                            <p v-else-if="cycle === 12 ">
+                                                <span class="old-price">R$ {{product.cycle.annually.priceOrder}}</span>
+                                            </p>
+                                            <p v-else-if="cycle === 1 ">
+                                                <span class="old-price">R$ {{product.cycle.monthly.priceOrder}}</span>
+                                            </p>
+                                            <span class="new-price">R$ 302,15</span>
+                                        </div>
+                                        <p>equivalente a</p>
+                                        <div class="monthly">
+                                            <span class="sign"></span>
+                                            <strong>8,39</strong>
+                                            <span>/mês*</span>
+                                        </div>
+                                        <button class="hire">Contrate agora</button>
+                                        
+                                    </div>
+                                    <div class="card-footer"></div>
+                                </div>
+                            <div v-else>
+                                <div class="text-center error">
+                                    <span>Error!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pre>
+            {{info}}
+        </pre>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-slide', {
+            speed: 400,
+            spaceBetween: 10,
+            slidesPerView: 3
+        })
+        //https://6dd1804f-a914-4c99-a1ed-58adca2bca74.mock.pstmn.io/prices
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    data2: null,
+                    loading: true,
+                    errored: false,
+                    cycle: 36,
+                    info: {
+                        products: null
+                    }
+                }
+            },
+            methods:{
+                getCycles: function(data){
+                    Object.keys(data).map(function(objectKey, index) {
+                        data2 = data[objectKey];
+                        console.log(data2);
+                    });
+                }
+            },
+            mounted () {
+                axios
+                .get('https://6dd1804f-a914-4c99-a1ed-58adca2bca74.mock.pstmn.io/prices')
+                .then(
+                (response) => {
+                    this.info = response.data.shared;
+                    this.getCycles(response.data.shared)
+                }
+                )
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+            }
+        })
+        
+    </script>
+</body>
+</html>

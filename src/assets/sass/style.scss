@@ -1,0 +1,86 @@
+@font-face {
+    font-family: "montserratbold";
+    src: url('../fonts/montserrat/montserrat-bold-webfont.woff2') format('woff2'),
+    url('../fonts/montserrat/montserrat-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "montserratlight";
+    src: url('../fonts/montserrat/montserrat-light-webfont.woff2') format('woff2'),
+    url('../fonts/montserrat/montserrat-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "montserrat";
+    src: url('../fonts/montserrat/montserrat-regular-webfont.woff2') format('woff2'),
+    url('../fonts/montserrat/montserrat-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'montserrat';
+    background-color: #ececec;
+}
+button{
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+label{
+    margin-bottom: 0;
+}
+.header{
+    background-color: lightblue;
+    width: 100%;
+    padding: 30px 0;
+    color: #fff;
+    position: relative;
+}
+#show-down{
+    display: block;
+    border: none;
+    color: #0000aa;
+    background-color: transparent;
+    font-size: 30px;
+    position: absolute;
+    left: calc(50% - 15px);
+    bottom: -15px;
+    padding: 0;
+}
+.swiper-selector{
+    $btn-container-width: 360px;
+    width: $btn-container-width;
+    background-color: #fff;
+    border: 1px solid #000;
+    overflow: hidden;
+    border-radius: 40px;
+    height: 40px;
+    outline: none;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    label{
+        border-radius: 40px;
+        background-color: transparent;
+        padding: 0 15px;
+        vertical-align: middle;
+        &:focus, &.active{
+            outline: none;
+            background-color: #0000aa;
+        }
+    }
+}
+.card{
+    width: 300px;
+}
+.hire{
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 40px;
+    background-color: #00f;
+    color: #fff;
+}
