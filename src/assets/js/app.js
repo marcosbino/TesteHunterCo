@@ -31,6 +31,25 @@ new Vue({
                     delete info.products[objectKey]
                 }
             });
+        },
+        hireNow: function(prodCode, prodCycle){
+            var lib = {
+                1: "monthly",
+                12: "annually",
+                36: "triennially",
+            }
+            alert(`https://6dd1804f-a914-4c99-a1ed-58adca2bca74.mock.pstmn.io/prices?a=add&pid=${prodCode}&billingcycle=${lib[prodCycle]}&promocode=PROMO40`)
+            // axios.post(`https://6dd1804f-a914-4c99-a1ed-58adca2bca74.mock.pstmn.io/prices?a=add&pid=${prodCode}&billingcycle=${lib[prodCycle]}&promocode=PROMO40`)
+            // .then(
+
+            // )
+            // .catch(error => {
+            //     console.log(error)
+            //     this.errored = true
+            // })
+            // .finally(() => {
+            //     alert(`https://6dd1804f-a914-4c99-a1ed-58adca2bca74.mock.pstmn.io/prices?a=add&pid=${prodCode}&billingcycle=${lib[prodCycle]}&promocode=PROMO40`)
+            // });
         }
     },
     mounted () {
@@ -40,21 +59,31 @@ new Vue({
         .then(
             (response) => {
                 this.info = response.data.shared;
-                this.getCycles(response.data.shared)
+                this.getCycles(response.data.shared);
+                loadSwiper()
             }
-        )
-        .catch(error => {
+            )
+            .catch(error => {
                 console.log(error)
                 this.errored = true
-        })
-        .finally(() => this.loading = false);
+            })
+            .finally(() => this.loading = false);
     },
     components: {
-      },
+    },
 })
-var swiper = new Swiper('.swiper-container', {
-    speed: 400,
-    spaceBetween: 100,
-    slidesPerView: 3,
-    centeredSlides: true
-});
+    function loadSwiper(){
+        swiper = new Swiper('.swiper-container', {
+            speed: 400,
+            slidesPerView: 1,
+            on: {
+                init: function () {
+                    console.log('swiper initialized');
+                },
+                slideChange: function(){
+                    console.log('working')
+                }
+            }
+        });
+    }
+    

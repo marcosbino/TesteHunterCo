@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
     <link rel="stylesheet" href="src/assets/sass/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
     <title>Teste HunterCo.</title>
 </head>
 <body>
@@ -15,11 +15,11 @@
             <div class="check">99.9% de disponibilidade: seu site sempre no ar</div>
             <div class="check">Suporte 24h, todos os dias</div>
             <div class="check">Painel de controle cPanel</div>
-            <button id="show-down">
+            <span id="show-down">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z"/>
                 </svg>
-            </button>
+            </span>
         </div>
         <div v-if="loading">Carregando...</div>
         <div  v-else class="content-home d-flex justify-content-center">
@@ -28,22 +28,26 @@
                     <span>quero pagar a cada:</span>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <div class="swiper-selector">
+                    <div class="cycle-selector">
                         <label for="">
-                            <input type="radio" name="cycle" checked v-model="cycle" value="36">3 anos
+                            <input type="radio" name="cycle" checked v-model="cycle" value="36">
+                            <span>3 anos</span>
                         </label>
                         <label for="">
-                            <input type="radio" name="cycle" v-model="cycle" value="12">1 ano
+                            <input type="radio" name="cycle" v-model="cycle" value="12">
+                            <span>1 ano</span>
                         </label>
                         <label for="">
-                            <input type="radio" name="cycle" v-model="cycle" value="1">1 mês
+                            <input type="radio" name="cycle" v-model="cycle" value="1">
+                            <span>1 mês</span>
                         </label>
                     </div>
                 </div>
                 <div class="swiper-container" v-if="info.products !== null">
-                    <div class="swiper-wrapper" >
-                        <div class="swiper-slide d-flex justify-content-between flex-wrap" v-for="product in info.products">
-                            <div class="card">
+                    <div class="swiper-wrapper d-flex justify-content-between flex-wrap" >
+                        <div class="swiper-slide" v-for="product in info.products">
+                            <div></div>
+                            <div class="card m-2">
                                 <div class="card-header text-center">
                                     <input type="hidden" name="id" >
                                     <i>
@@ -58,34 +62,40 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <div class="small price" v-for="period in product.cycle">
-                                        <p v-show="period.months == cycle">
+                                        <p v-show="period.months == cycle" class="m-0">
                                             <span class="old-price">R$ {{period.priceOrder}}</span>
                                             <span class="new-price">R$ {{period.newPrice}}</span>
                                         </p>
                                     </div>
-                                    <p>equivalente a</p>
+                                    <p class="m-0">equivalente a</p>
                                     <div class="monthly" v-for="period in product.cycle">
                                         <span class="sign"></span>
-                                        <p v-show="period.months == cycle">
+                                        <p v-show="period.months == cycle" class="m-0">
                                             <span>R$</span>
                                             <strong>{{period.perMonth}}</strong>
                                             <span>/mês*</span>
                                         </p>
                                     </div>
-                                    <button class="hire" :data-cycle="cycle" :data-id="product.id">Contrate agora</button>
-                                    <p>1 ano de Domínio grátis</p>
+                                    <button class="hire" @click="hireNow(product.id, cycle)" :data-cycle="cycle" :data-id="product.id">Contrate agora</button>
+                                    <p class="domain">1 ano de Domínio grátis</p>
                                     <p v-for="period in product.cycle" class="save-price">
                                         <span v-show="period.months == cycle" >Economize R${{period.savePrice}}</span>
                                     </p>
                                     <span class="tag-save"> 40% OFF</span>
                                 </div>
-                                <div class="card-footer"></div>
+                                <div class="card-footer">
+                                    <ul>
+                                        <li>Para 1 site</li>
+                                        <li><strong>100GB</strong> de armazenamento</li>
+                                        <li>Contas de E-mail <strong>ilimitadas</strong></li>
+                                        <li>Criador de sites <strong>Grátis</strong></li>
+                                        <li>Certificado SSL <strong>Gráts</strong> (HTTPS)</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        
-                        <div class="swiper-scrollbar"></div>
+                        <div class="swiper-button-prev d-none"></div>
+                        <div class="swiper-button-next d-none"></div>
                     </div>
                 </div>
                 <div v-else class="swiper-slide d-flex justify-content-between flex-wrap" >
