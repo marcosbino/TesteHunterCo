@@ -72,18 +72,18 @@ new Vue({
     components: {
     },
 })
-    function loadSwiper(){
-        swiper = new Swiper('.swiper-container', {
-            speed: 400,
-            slidesPerView: 1,
-            on: {
-                init: function () {
-                    console.log('swiper initialized');
-                },
-                slideChange: function(){
-                    console.log('working')
-                }
+function loadSwiper(){
+    swiper = new Swiper('.swiper-container', {
+        speed: 400,
+        slidesPerView: 1,
+        on: {
+            init: function () {
+                console.log('swiper initialized');
+            },
+            slideChange: function(){
+                console.log('working')
             }
-        });
-    }
+        }
+    });
+}
     

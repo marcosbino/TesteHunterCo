@@ -23,7 +23,7 @@
         </div>
         <div v-if="loading">Carregando...</div>
         <div  v-else class="content-home d-flex justify-content-center">
-            <div class="col-8">
+            <div class="col-lg-8">
                 <div class="text-center  m-3 m-b-1">
                     <span>quero pagar a cada:</span>
                 </div>
@@ -44,9 +44,8 @@
                     </div>
                 </div>
                 <div class="swiper-container" v-if="info.products !== null">
-                    <div class="swiper-wrapper d-flex justify-content-between flex-wrap" >
+                    <div class="swiper-wrapper d-flex justify-content-between justify-content-sm-center flex-wrap" >
                         <div class="swiper-slide" v-for="product in info.products">
-                            <div></div>
                             <div class="card m-2">
                                 <div class="card-header text-center">
                                     <input type="hidden" name="id" >

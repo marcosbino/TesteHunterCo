@@ -94,6 +94,7 @@ label {
 
 .card {
   width: 300px;
+  max-width: 100%;
 }
 
 .hire {
@@ -162,5 +163,20 @@ label {
 .domain {
   font-size: 12px;
   margin-top: 10px;
+}
+
+@media (max-width: 576px) {
+  .swiper-slide {
+    max-width: 274px;
+  }
+  .card {
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 320px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
